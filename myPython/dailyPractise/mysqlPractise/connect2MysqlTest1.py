@@ -100,7 +100,11 @@ def updateMysql():
         update test5 set id=2 where name='huabingood'
     '''
     try:
-        cursor.execute()
+        cursor.execute(sql)
+    except:
+        db.commit()
+
+
 # 测试链接
 if __name__ == '__main__':
     # 打开数据库连接
