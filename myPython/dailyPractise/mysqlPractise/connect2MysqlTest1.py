@@ -101,8 +101,9 @@ def updateMysql():
     '''
     try:
         cursor.execute(sql)
-    except:
         db.commit()
+    except:
+        db.rollback()
 
 
 # 测试链接
@@ -113,7 +114,8 @@ if __name__ == '__main__':
     # getOne()
     # createTable()
     # insert2mysql()
-    quaryMany()
+    # quaryMany()
+    updateMysql()
 
     # 关掉数据库连接
     db.close()
