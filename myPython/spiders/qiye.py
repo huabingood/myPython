@@ -12,26 +12,28 @@ class MyspyderSpider(scrapy.Spider):
     def parse(self, response):
         # 解析相关的内容并持久化
         # 获取该页面的 标题，时间，链接，阅读人数，评论人数
+        print(response.body())
         fatherNodes = response.xpath('//*[@id="mainContent"]/div/div')
         for element in fatherNodes:
             date = element\
-                .xpath('./[@id = "homepage1_HomePageDays_DaysList_ctl00_ImageLink"]/test()')\
+                .xpath('./div[1]/a[1]/text()')\
                 .extract_first()
             title = element\
-                .xpath('./[ @ id = "homepage1_HomePageDays_DaysList_ctl00_DayList_TitleUrl_0"]/test()')\
+                .xpath('./*[ @id="homepage1_HomePageDays_DaysList_ctl00_DayList_TitleUrl_0"]/text()')\
                 .extract_first()
             summary = element\
-                .xpath('./[@id="mainContent"]/div/div[3]/div[3]/div/text()')\
+                .xpath('./div[3]/div/text()')\
                 .extract_first()
             detailUrl = element\
-                .xpath('./[@id="mainContent"]/div/div[3]/div[3]/div/a/@href')\
+                .xpath('./div[3]/div/a/@href')\
                 .extract_first()
             # 提取出来的内容是这样的：posted @ 2018-05-23 16:57 七夜的故事 阅读(144) 评论(0)
             # 所以为了获取点赞人数和评论人数，必须对此进行提取
             need2Extract = element\
-                .xpath('./[@id="mainContent"]/div/div[3]/div[5]/text()')\
-                .extract_first()\
-                .split(' ')
+                .xpath('./div[5]/text()')\
+                .extract_first()
+            print(need2Extract)
+                #.split(' ')
             # likeNum =
 
 
