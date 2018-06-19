@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
+'''
+    怀疑这个是动态网站，无法获取指定的内容
+'''
 
 class MyspyderSpider(scrapy.Spider):
     name = 'qiye'
     # allowed_domains 是可以不写的
     # allowed_domains = ['duozhuayu.com']
     # 要爬取的起始路径
-    start_urls = ['http://www.cnblogs.com/qiyeboy/category/793342.html']
+    start_urls = ['https://www.cnblogs.com/qiyeboy/']
 
     def parse(self, response):
         # 解析相关的内容并持久化
         # 获取该页面的 标题，时间，链接，阅读人数，评论人数
-        print(response.body())
-        fatherNodes = response.xpath('//*[@id="mainContent"]/div/div')
+        fatherNodes = response.xpath('//*[@id="mainContent"]/div/div[2]')
         for element in fatherNodes:
             date = element\
                 .xpath('./div[1]/a[1]/text()')\
